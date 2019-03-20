@@ -6,7 +6,6 @@ const redisClient = require('./redis-client');
 app.get('/store/:key', async (req, res) => {
     const { key } = req.params
     const value = req.query;
-    console.log(`[VALUE]: ${value}`);
     await redisClient.setAsync(key, JSON.stringify(value));
     return res.send('Success');
 });
@@ -14,7 +13,6 @@ app.get('/store/:key', async (req, res) => {
 app.get('/get/:key', async (req, res) => {
   const { key } = req.params
   const rawData = await redisClient.getAsync(key);
-  console.log(`[RAWDATA]: ${JSON.stringify(rawData)}`);
   return res.json(JSON.parse(rawData))
 })
 
